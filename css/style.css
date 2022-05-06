@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(32, 34, 34);
+
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Debug */
+canvas {
+    background-color: rgb(184, 169, 143);
+}
