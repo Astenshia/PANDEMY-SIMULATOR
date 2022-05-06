@@ -15,5 +15,17 @@ body {
 
 /* Debug */
 canvas {
-    background-color: rgb(184, 169, 143);
+    background-color: rgb(148, 148, 148);
+    box-shadow: 0 0 10px #000;
+    border: 5px solid #000;
+    border-radius: 5px;
+}
+
+#stepIndicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: monospace;
+    font-size: 20px;
+    color: white;
 }
