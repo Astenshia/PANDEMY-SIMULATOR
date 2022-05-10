@@ -43,7 +43,7 @@ function drawSquare(ctx, x, y, size, color, fill=true) {
  * @param {Number} a - Opacité (Entre 0 et 1)
  * @returns {String}
  */
-function rgba(r, g, b, a)
+function rgba(r, g, b, a=1)
 {
     return "rgba(" + r + ',' + g + ',' + b + ',' + a + ")";
 }

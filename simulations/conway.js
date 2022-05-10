@@ -13,8 +13,8 @@ class ConwaySimulation extends Simulation {
             // place random cells based on Math.random() which return a number bewteen 0 and 1
             // and a probability between 0 and 1
             for(let x = 0; x < this.gridSize; ++x)
-            for(let y = 0; y < this.gridSize; ++y)
-                this.grid[x][y].value = (Math.random() > PROBABILITY);
+                for(let y = 0; y < this.gridSize; ++y)
+                    this.grid[x][y].value = (Math.random() < PROBABILITY);
         } else {
             let middle = Math.floor(this.gridSize * .5);
             // plane
@@ -34,7 +34,8 @@ class ConwaySimulation extends Simulation {
         let n = this._getNeighboursList(x, y, NEIGHBOURING_RULES.CORNERS);
         let count = 0;
         // count outside cell as dead cells
-        for(let nn of n) count += nn.value;
+        for(const nn of n)
+            count += nn.value;
 
         // apply rules
 

@@ -19,6 +19,8 @@ canvas {
     box-shadow: 0 0 10px #000;
     border: 5px solid #000;
     border-radius: 5px;
+
+    image-rendering: pixelated;
 }
 
 #stepIndicator {

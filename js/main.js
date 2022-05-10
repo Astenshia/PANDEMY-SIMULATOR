@@ -3,6 +3,7 @@ const MAX_STEPS = 1000;
 // delai entre chaque étape
 const STEP_DELAY = 200;
 
+// variable pour la simulation
 var sim;
 
 /**
@@ -18,9 +19,10 @@ function main() {
     const ctx = canvas.getContext("2d");
 
     // nouvelle simulation
-    sim = new ConwaySimulation();
+    sim = new SIR();
     // initialisation
     sim.init();
+    sim.draw(ctx);
 
     // boucle de simulation
     var step = 0;
@@ -28,16 +30,15 @@ function main() {
         // efface l'ecran
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-
-        // affiche la grille
-        sim.draw(ctx);
         // met à jour la simulation
         sim.update();
+        // affiche la grille
+        sim.draw(ctx);
 
         // limite d'etapes
         ++step;
-        if(step < MAX_STEPS)
-            setTimeout(update, STEP_DELAY);
+        if(step < MAX_STEPS && !sim.isFinished())
+            setTimeout(update, STEP_DELAY); // lance etape suivante
 
         // met à jour l'affichage des étapes
         stepIndicator.textContent = step.toString();

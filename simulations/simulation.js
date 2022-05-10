@@ -34,20 +34,24 @@ class Simulation {
     init() { }
 
     /**
-     * @brief Methode privée pour créer une grille de la taille
+     * @brief Retourne true si la simulation est finie
+     */
+    isFinished() { return false; }
+
+    /**
+     * @brief Methode protegée pour créer une grille de la taille
      * specifiée dans this.gridSize, chaque element sera égal à this.defaultCell
      * @returns {Array} - La grille créée
      */
     _createGrid() {
-        var grid = Array.from(
-            new Array(this.gridSize), 
-            v => { 
-                var arr = new Array(this.gridSize);
-                for(var i = 0; i < arr.length; ++i)
-                    arr[i] = Object.assign({}, this.defaultCell);
-                return arr; 
+        var grid = new Array(this.gridSize);
+        for(var x = 0; x < grid.length; ++x) {
+            grid[x] = new Array(this.gridSize);
+            for(var y = 0; y < grid.length; ++y) {
+                // On copie la valeur pck sinon ca modifie tout attention
+                grid[x][y] = Object.assign({}, this.defaultCell);
             }
-        );
+        }
         return grid;
     }
 
@@ -104,7 +108,7 @@ class Simulation {
      * @param {Number} x - Position x dans la grille
      * @param {Number} y - Positon y dans la grille
      * @param {Array} neighboursRule - Une des règles de NEIGHBOURING_RULES 
-     * @returns {Array} - voisins
+     * @returns {Array} voisins
      */
     _getNeighboursList(x, y, neighboursRule)
     {
@@ -114,12 +118,14 @@ class Simulation {
             // cellule dans la direction voulue
             var nx = x + dir[0];
             var ny = y + dir[1];
-
+            
             // si elle est en dehors de la grille on ne la compte pas
-            if(nx < 0 || nx >= this.gridSize
-            || ny < 0 || ny >= this.gridSize) continue
-
-            neighbours.push(this.grid[nx][ny]);
+            if(!(nx < 0 || nx >= this.gridSize
+            || ny < 0 || ny >= this.gridSize)) 
+            {
+                // ajoute le voisin dans la liste
+                neighbours.push(this.grid[nx][ny]);
+            }
         }
 
         return neighbours;
