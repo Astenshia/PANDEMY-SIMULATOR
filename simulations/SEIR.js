@@ -1,14 +1,15 @@
 const ETAT = {
     SUSCEPTIBLE: 0,
     INFECTEE: 1,
-    RETABLIE: 2
+    RETABLIE: 2,
+    EXPOSE: 3,
 }
 
 /**
- * SIR simulation model
+ * SEIR simulation model
  * src: 
  */
-class SIR extends Simulation {
+class SEIR extends Simulation {
     constructor() {
         super({ etat: ETAT.SUSCEPTIBLE }, 50);
         
@@ -19,6 +20,8 @@ class SIR extends Simulation {
             tauxInfect: 38,
             // % entre 1 et 100
             tauxGuerison: 12,
+            // nombre entre 1 et 20
+            dureeExposition: 2,
             // nombre en 1 et 5
             rayonInfectueux: 3
         };
@@ -62,6 +65,9 @@ class SIR extends Simulation {
             case ETAT.RETABLIE:
                 drawCircle(context, cx, cy, 0.4*cellSize, rgba(20, 200, 20, 0.8));
                 break;
+            case ETAT.RETABLIE:
+                drawCircle(context, cx, cy, 0.4*cellSize, rgba(240, 65, 35, 0.8));
+                break;   
         }
     }
 
@@ -107,7 +113,7 @@ class SIR extends Simulation {
                 }
                 // infection
                 if(Math.random() < this.params.tauxInfect * .01 * count) {
-                    cell.etat = ETAT.INFECTEE;
+                    cell.etat = ETAT.EXPOSE;
                 }
                 break;
 
@@ -115,7 +121,16 @@ class SIR extends Simulation {
                 if(Math.random() < this.params.tauxGuerison * .01) {
                     cell.etat = ETAT.RETABLIE;
                     this.retablieCount += 1;
+                    }
+                break;
+
+            case ETAT.EXPOSE:
+                var i = 0;
+                while (i < this.params.dureeExposition){ 
+                    continue
                 }
+                cell.etat = ETAT.INFECTEE
+                
                 break;
         }
 
