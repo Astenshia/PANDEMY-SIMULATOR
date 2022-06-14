@@ -19,7 +19,7 @@ function main() {
     const ctx = canvas.getContext("2d");
 
     // nouvelle simulation
-    sim = new SEIR();
+    sim = new SEIQR();
     // initialisation
     sim.init();
     sim.draw(ctx);

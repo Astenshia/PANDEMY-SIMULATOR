@@ -3,15 +3,17 @@ const ETAT = {
     INFECTEE: 1,
     RETABLIE: 2,
     EXPOSE: 3,
+    QUARANTAINE: 4,
+    MORT: 5,
 }
 
 /**
- * SEIR simulation model
+ * SEIQR simulation model
  * src: 
  */
-class SEIR extends Simulation {
+class SEIQR extends Simulation {
     constructor() {
-        super({ etat: ETAT.SUSCEPTIBLE, exposition: 0 }, 50);
+        super({ etat: ETAT.SUSCEPTIBLE, exposition: 0, quarantaine: 0, immunite: 0}, 50);
         
         this.params = {
             // % entre 1 et 100
@@ -23,10 +25,20 @@ class SEIR extends Simulation {
             // nombre entre 1 et 20
             dureeExposition: 5,
             // nombre en 1 et 5
-            rayonInfectueux: 3
+            rayonInfectueux: 3,
+            // nombre entre 1 et 40,
+            dureeQuarantaine: 5,
+            // nombre entre 0 et 100
+            tauxMortalite: 10,
+            // purcetnage de chance qu'n se rende compte qu'on va être malade (entre 0 et 100)
+            tauxDetection: 10,
+
+            dureeImmunite: 20,
+
         };
 
         this.retablieCount = 0;
+        this.deathCount = 0;
     }
 
     init() {
@@ -44,7 +56,7 @@ class SEIR extends Simulation {
     }
 
     isFinished() {
-        return this.retablieCount >= this.gridSize * this.gridSize;
+        return (this.retablieCount + this.deathCount) >= this.gridSize * this.gridSize;
     }
 
     _drawCell(context, x, y, cell) {
@@ -68,6 +80,13 @@ class SEIR extends Simulation {
             case ETAT.EXPOSE:
                 drawCircle(context, cx, cy, 0.4*cellSize, rgba(240, 65, 35, 0.8));
                 break;   
+            case ETAT.QUARANTAINE:
+                drawCircle(context, cx, cy, 0.4*cellSize, rgba(243, 17, 205, 0.8));
+                break;
+            case ETAT.MORT:
+                drawCircle(context, cx, cy, 0.4*cellSize, rgba(0, 50, 240, 0.8));
+                break;
+        
         }
     }
 
@@ -100,6 +119,11 @@ class SEIR extends Simulation {
         // si cellule est deja guerie on simule rien
         switch(cell.etat) {
             case ETAT.RETABLIE:
+                cell.immunite++;
+                if (cell.immunite > this.params.dureeImmunite){
+                    cell.etat = ETAT.SUSCEPTIBLE
+                    this.retablieCount--
+                }
                 break;
 
             case ETAT.SUSCEPTIBLE:
@@ -122,14 +146,30 @@ class SEIR extends Simulation {
                     cell.etat = ETAT.RETABLIE;
                     this.retablieCount += 1;
                     }
+                else if (Math.random() < this.params.tauxMortalite* .01) {
+                    cell.etat = ETAT.MORT;
+                    this.deathCount += 1;
+                    }
                 break;
 
             case ETAT.EXPOSE:
                 cell.exposition++;
-                if(cell.exposition > this.params.dureeExposition)
-                    cell.etat = ETAT.INFECTEE
-                
+                if (cell.exposition > this.params.dureeExposition)
+                    cell.etat = ETAT.INFECTEE   //fin de periode d'exposition = infectee
+                else 
+                if(Math.random() < this.params.tauxDetection * .01 )
+                    cell.etat = ETAT.QUARANTAINE
                 break;
+
+            case ETAT.QUARANTAINE:
+                cell.quarantaine++;
+                if (cell.quarantaine > this.params.dureeQuarantaine)
+                    cell.etat = ETAT.RETABLIE
+                    break;
+
+            case ETAT.MORT:
+                break;
+                    
         }
 
         return cell;
