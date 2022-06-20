@@ -1,4 +1,4 @@
-const ETAT = {
+const ETAT_SIR = {
     SUSCEPTIBLE: 0,
     INFECTEE: 1,
     RETABLIE: 2
@@ -10,7 +10,7 @@ const ETAT = {
  */
 class SIR extends Simulation {
     constructor() {
-        super({ etat: ETAT.SUSCEPTIBLE }, 50);
+        super({ etat: ETAT_SIR.SUSCEPTIBLE }, 50);
         
         this.params = {
             // % entre 1 et 100
@@ -33,8 +33,8 @@ class SIR extends Simulation {
             var rx = Math.floor(Math.random() * (this.gridSize - 1));
             var ry = Math.floor(Math.random() * (this.gridSize - 1));
 
-            if(this.grid[rx][ry].etat == ETAT.SUSCEPTIBLE) {
-                this.grid[rx][ry].etat = ETAT.INFECTEE;
+            if(this.grid[rx][ry].etat == ETAT_SIR.SUSCEPTIBLE) {
+                this.grid[rx][ry].etat = ETAT_SIR.INFECTEE;
                 count += 1;
             }
         }
@@ -53,13 +53,13 @@ class SIR extends Simulation {
         // dessiner les cellules
         
         switch(cell.etat) {
-            case ETAT.SUSCEPTIBLE:
+            case ETAT_SIR.SUSCEPTIBLE:
                 drawCircle(context, cx, cy, 0.4*cellSize, rgba(255, 255, 255, 0.2));
                 break;
-            case ETAT.INFECTEE:
+            case ETAT_SIR.INFECTEE:
                 drawCircle(context, cx, cy, 0.4*cellSize, rgba(200, 20, 20, 0.8));
                 break;
-            case ETAT.RETABLIE:
+            case ETAT_SIR.RETABLIE:
                 drawCircle(context, cx, cy, 0.4*cellSize, rgba(20, 200, 20, 0.8));
                 break;
         }
@@ -93,27 +93,27 @@ class SIR extends Simulation {
     _updateCell(x, y, cell) {
         // si cellule est deja guerie on simule rien
         switch(cell.etat) {
-            case ETAT.RETABLIE:
+            case ETAT_SIR.RETABLIE:
                 break;
 
-            case ETAT.SUSCEPTIBLE:
+            case ETAT_SIR.SUSCEPTIBLE:
                 var n = this._selectNeighbours(x, y);
                 // nombre voisins infectés
                 var count = 0;
                 for(const voisin of n) {
-                    if(voisin.etat == ETAT.INFECTEE) {
+                    if(voisin.etat == ETAT_SIR.INFECTEE) {
                         count += 1;
                     }
                 }
                 // infection
                 if(Math.random() < this.params.tauxInfect * .01 * count) {
-                    cell.etat = ETAT.INFECTEE;
+                    cell.etat = ETAT_SIR.INFECTEE;
                 }
                 break;
 
-            case ETAT.INFECTEE:
+            case ETAT_SIR.INFECTEE:
                 if(Math.random() < this.params.tauxGuerison * .01) {
-                    cell.etat = ETAT.RETABLIE;
+                    cell.etat = ETAT_SIR.RETABLIE;
                     this.retablieCount += 1;
                 }
                 break;

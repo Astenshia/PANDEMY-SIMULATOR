@@ -1,4 +1,4 @@
-const ETAT = {
+const ETAT_SEIR = {
     SUSCEPTIBLE: 0,
     INFECTEE: 1,
     RETABLIE: 2,
@@ -11,7 +11,7 @@ const ETAT = {
  */
 class SEIR extends Simulation {
     constructor() {
-        super({ etat: ETAT.SUSCEPTIBLE, exposition: 0 }, 50);
+        super({ etat: ETAT_SEIR.SUSCEPTIBLE, exposition: 0 }, 50);
         
         this.params = {
             // % entre 1 et 100
@@ -36,8 +36,8 @@ class SEIR extends Simulation {
             var rx = Math.floor(Math.random() * (this.gridSize - 1));
             var ry = Math.floor(Math.random() * (this.gridSize - 1));
 
-            if(this.grid[rx][ry].etat == ETAT.SUSCEPTIBLE) {
-                this.grid[rx][ry].etat = ETAT.INFECTEE;
+            if(this.grid[rx][ry].etat == ETAT_SEIR.SUSCEPTIBLE) {
+                this.grid[rx][ry].etat = ETAT_SEIR.INFECTEE;
                 count += 1;
             }
         }
@@ -56,16 +56,16 @@ class SEIR extends Simulation {
         // dessiner les cellules
         
         switch(cell.etat) {
-            case ETAT.SUSCEPTIBLE:
+            case ETAT_SEIR.SUSCEPTIBLE:
                 drawCircle(context, cx, cy, 0.4*cellSize, rgba(255, 255, 255, 0.2));
                 break;
-            case ETAT.INFECTEE:
+            case ETAT_SEIR.INFECTEE:
                 drawCircle(context, cx, cy, 0.4*cellSize, rgba(200, 20, 20, 0.8));
                 break;
-            case ETAT.RETABLIE:
+            case ETAT_SEIR.RETABLIE:
                 drawCircle(context, cx, cy, 0.4*cellSize, rgba(20, 200, 20, 0.8));
                 break;
-            case ETAT.EXPOSE:
+            case ETAT_SEIR.EXPOSE:
                 drawCircle(context, cx, cy, 0.4*cellSize, rgba(240, 65, 35, 0.8));
                 break;   
         }
@@ -99,35 +99,35 @@ class SEIR extends Simulation {
     _updateCell(x, y, cell) {
         // si cellule est deja guerie on simule rien
         switch(cell.etat) {
-            case ETAT.RETABLIE:
+            case ETAT_SEIR.RETABLIE:
                 break;
 
-            case ETAT.SUSCEPTIBLE:
+            case ETAT_SEIR.SUSCEPTIBLE:
                 var n = this._selectNeighbours(x, y);
                 // nombre voisins infectés
                 var count = 0;
                 for(const voisin of n) {
-                    if(voisin.etat == ETAT.INFECTEE) {
+                    if(voisin.etat == ETAT_SEIR.INFECTEE) {
                         count += 1;
                     }
                 }
                 // infection
                 if(Math.random() < this.params.tauxInfect * .01 * count) {
-                    cell.etat = ETAT.EXPOSE;
+                    cell.etat = ETAT_SEIR.EXPOSE;
                 }
                 break;
 
-            case ETAT.INFECTEE:
+            case ETAT_SEIR.INFECTEE:
                 if(Math.random() < this.params.tauxGuerison * .01) {
-                    cell.etat = ETAT.RETABLIE;
+                    cell.etat = ETAT_SEIR.RETABLIE;
                     this.retablieCount += 1;
                     }
                 break;
 
-            case ETAT.EXPOSE:
+            case ETAT_SEIR.EXPOSE:
                 cell.exposition++;
                 if(cell.exposition > this.params.dureeExposition)
-                    cell.etat = ETAT.INFECTEE
+                    cell.etat = ETAT_SEIR.INFECTEE
                 
                 break;
         }
