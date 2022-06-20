@@ -9,7 +9,7 @@ const ETAT_SIR = {
  * src: 
  */
 class SIR extends Simulation {
-    constructor() {
+    constructor(params={}) {
         super({ etat: ETAT_SIR.SUSCEPTIBLE }, 50);
         
         this.params = {
@@ -20,8 +20,10 @@ class SIR extends Simulation {
             // % entre 1 et 100
             tauxGuerison: 12,
             // nombre en 1 et 5
-            rayonInfectueux: 3
+            rayonInfectieux: 3
         };
+
+        this._setParams(params);
 
         this.retablieCount = 0;
     }
@@ -72,12 +74,12 @@ class SIR extends Simulation {
         // |    |
         // °----°
         var n = [];
-        for(var cx = -this.params.rayonInfectueux; cx < this.params.rayonInfectueux; ++cx) {
-            for(var cy = -this.params.rayonInfectueux; cy < this.params.rayonInfectueux; ++cy) {
+        for(var cx = -this.params.rayonInfectieux; cx < this.params.rayonInfectieux; ++cx) {
+            for(var cy = -this.params.rayonInfectieux; cy < this.params.rayonInfectieux; ++cy) {
                 // distance depuis centre
                 var d = cx*cx + cy*cy;
                 // si cellule comprise dans le cercle
-                if(d <= this.params.rayonInfectueux * this.params.rayonInfectueux) {
+                if(d <= this.params.rayonInfectieux * this.params.rayonInfectieux) {
                     // en dehors de la grille -> on ignore
                     if(x + cx < 0 || x + cx >= this.gridSize
                     || y + cy < 0 || y + cy >= this.gridSize) continue;
@@ -122,3 +124,5 @@ class SIR extends Simulation {
         return cell;
     }
 }
+
+SimulationManager.AddSim(SIR);

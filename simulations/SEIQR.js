@@ -15,7 +15,7 @@
  * src: 
  */
 class SEIQR extends Simulation {
-    constructor() {
+    constructor(params={}) {
         super({ etat: ETAT_SEIQR.SUSCEPTIBLE, exposition: 0, quarantaine: 0, immunite: 0}, 50);
         
         this.params = {
@@ -28,7 +28,7 @@ class SEIQR extends Simulation {
             // nombre entre 1 et 20
             dureeExposition: 5,
             // nombre en 1 et 5
-            rayonInfectueux: 3,
+            rayonInfectieux: 3,
             // nombre entre 1 et 40,
             dureeQuarantaine: 5,
             // nombre entre 0 et 100
@@ -39,6 +39,8 @@ class SEIQR extends Simulation {
             dureeImmunite: 20,
 
         };
+
+        this._setParams(params);
 
         this.retablieCount = 0;
         this.deathCount = 0;
@@ -100,12 +102,12 @@ class SEIQR extends Simulation {
         // |    |
         // °----°
         var n = [];
-        for(var cx = -this.params.rayonInfectueux; cx < this.params.rayonInfectueux; ++cx) {
-            for(var cy = -this.params.rayonInfectueux; cy < this.params.rayonInfectueux; ++cy) {
+        for(var cx = -this.params.rayonInfectieux; cx < this.params.rayonInfectieux; ++cx) {
+            for(var cy = -this.params.rayonInfectieux; cy < this.params.rayonInfectieux; ++cy) {
                 // distance depuis centre
                 var d = cx*cx + cy*cy;
                 // si cellule comprise dans le cercle
-                if(d <= this.params.rayonInfectueux * this.params.rayonInfectueux) {
+                if(d <= this.params.rayonInfectieux * this.params.rayonInfectieux) {
                     // en dehors de la grille -> on ignore
                     if(x + cx < 0 || x + cx >= this.gridSize
                     || y + cy < 0 || y + cy >= this.gridSize) continue;
@@ -178,3 +180,5 @@ class SEIQR extends Simulation {
         return cell;
     }
 }
+
+SimulationManager.AddSim(SEIQR);
