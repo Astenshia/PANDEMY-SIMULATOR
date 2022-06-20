@@ -130,4 +130,16 @@ class Simulation {
 
         return neighbours;
     }
+
+    /**
+     * @brief set params of the simulation
+     * @param {Object} params - params dict
+     */
+    _setParams(params) {
+        for(const param of Object.keys(params)) {
+            if(Object.keys(this.params).includes(param)) {
+                this.params[param] = params[param];
+            }
+        }
+    }
 }
