@@ -6,21 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PANDEMY SIMULATOR</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/interface.css">
 
     <script src="https://kit.fontawesome.com/7014c90db3.js" crossorigin="anonymous"></script>
     <script src="js/draw.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/interface.js"></script>
 </head>
 <body>
     <header><h1>Pandemy simulator</h1></header>
-    <span id="stepIndicator"></span>
-    <canvas id="canvas0" width="400" height="400"></canvas>
-    
 
-    <footer><p>By the scientists Lucas & Claire</p></footer>
+    <div id="main">
+        <canvas id="canvas0" width="400" height="400"></canvas>
+    </div>
+    
+    <div id="interface">
+        <div class="simulations">
+            <i id="interface-icon" class="fa-solid fa-gear"></i>
+            <div class="tabs"></div>
+            <div class="views"></div>
+        </div>
+        <div class="inspector">
+            <button id="control"><i class="fa-solid fa-play"></i></button>
+            <span id="stepIndicator"></span>
+        </div>
+    </div>
+
+    <footer><p>By the unbelievable ill-tempered and cat-lover scientists Lucas & Claire</p></footer>
     <!-- Fichiers simulation   -->
+    <script src="js/simulationManager.js"></script>
     <script src="simulations/simulation.js"></script>
-    <script src="simulations/conway.js"></script>
-    <script src="simulations/SEIQR.js"></script>
+    <script src="simulations/conway.js" defer></script>
+    <script src="simulations/SEIQR.js" defer></script>
+    <script src="simulations/SEIR.js" defer></script>
+    <script src="simulations/SIR.js" defer></script>
 </body>
 </html>

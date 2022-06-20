@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Farro:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Just+Another+Hand&display=swap');
+
+#interface {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100vw;  /* view width  */
+    height: 100vh; /* view height */
+}
+
+#interface div.inspector {
+    --size: 80px;
+    position: absolute;
+    right: var(--size);
+    top: var(--size);
+    height: calc(100vh - calc(var(--size) * 2));
+    width: 20vw;
+    border-radius: 10px;
+    background-color: rgb(173, 17, 30);
+    box-shadow: 0 0 8px 3px rgb(245, 7, 7);
+
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+#interface div.simulations {
+    --size: 80px;
+    position: absolute;
+    left: var(--size);
+    top: var(--size);
+    height: calc(100vh - calc(var(--size) * 2));
+    width: 20vw;
+    border-radius: 10px;
+    background-color: rgb(190, 255, 146);
+    box-shadow: 0 0 8px 3px rgb(190, 255, 146);
+
+    display: flex;
+    flex-direction: row-reverse;
+    /* overflow: hidden; */
+}
+
+/* Onglet */
+.tabs {
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-button {
+    background-color: rgb(77, 122, 51);
+    width: 20px;
+    text-orientation:sideways-right;
+    border: none;
+    flex-grow: 1;
+    color: black;
+    border-radius: 0 10px 10px 0;
+    box-shadow: inset 5px 0 6px rgb(51, 51, 51);
+    position: relative;
+    transition: all .2s ease;
+}
+
+.tab-button span {
+    rotate: -90deg;
+    display: inline-block;
+    transform-origin: left;
+    position: absolute;
+    left: 10px;
+    font-size: 18px;
+    font-family: "Just Another Hand", cursive; /* TABFONT */
+}
+
+.tab-button.active {
+    box-shadow: none;
+    background-color: rgb(108, 211, 48);
+    border: none;
+    color: white;
+}
+
+.views {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(108, 211, 48);
+    border-radius: 10px 0 0 10px;
+}
+
+.tab-view {
+    position: relative;
+    z-index: 2;
+    display: none;
+    padding: 5%;
+    width: 90%;
+    height: 90%;
+    row-gap: 12px;
+}
+
+.tab-view.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* inputs */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+/* label */
+.input-group label {
+    font-family: 'Just Another Hand', cursive; /* NOMS SLIDERS*/
+    font-size: 33px;
+}
+
+/* ranges */
+.input-group input {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+
+    background-color: white;
+    color: darkolivegreen;
+}
+
+.input-group input::-webkit-slider-runnable-track,
+.input-group input::-moz-range-track {
+    height: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+.input-group input::-webkit-slider-thumb,
+.input-group input::-moz-range-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    border: 0;
+    background-color: rgb(50, 63, 29)
+}
+
+.input-group input:hover::-webkit-slider-thumb,
+.input-group input:hover::-moz-range-thumb {
+    background-color: rgb(60, 75, 36)
+}
+
+
+.input-group input::-moz-range-progress,
+.input-group input::-webkit-range-progress {
+    background-color: currentColor;
+    height: 100%;
+    border-radius: 5px;
+}
+
+/* settings icon */
+#interface-icon {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    font-size: 40px;
+    color: rgb(108, 211, 48);
+}
+
+/* Control */
+#control {
+    background-color: transparent;
+    color: rgb(95, 21, 21);
+    border: 0;
+    height: 50px;
+    margin-bottom: 20px;
+    font-size: 50px;
+}
