@@ -1,6 +1,40 @@
+/* Fonts */
+@font-face {
+    font-family: Uroob;
+    src: url(../fonts/Uroob.ttf);
+}
+@font-face {
+    font-family: Plento;
+    src: url(../fonts/PLENTO-Regular.ttf);
+}
+
+
+/* Style */
 * {
     margin: 0;
     padding: 0;
+}
+
+/* Header and footer */
+header,
+footer {
+    position: absolute;
+    width: 100vw;
+    height: 5vh;
+    display: grid;
+    place-items: center;
+    left: 0;
+    color: white;
+    text-align: center;
+}
+header { 
+    top: 0;
+    font-family: Plento, sans-serif;
+}
+footer { 
+    bottom : 0;
+    font-family: Uroob, sans-serif;
+    color: #eee;
 }
 
 body {
