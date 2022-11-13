@@ -42,6 +42,8 @@ class SimulationManager {
         icon.className = "fa-solid fa-play";
         Interface.SetStep(0);
 
+        Graph.active.reset();
+
         // re cree
         const simclass = SimulationManager.simulations[simulationName];
         SimulationManager.current = new simclass(params);
@@ -62,6 +64,14 @@ class SimulationManager {
             SimulationManager.current.init();
             SimulationManager.current.draw(SimulationManager.ctx);
             SimulationManager.isInitiated = true;
+
+            var counters = SimulationManager.current.getStatesCount();
+            for(let counter in counters) {
+                Graph.active.addPoint(counter, SimulationManager.step, counters[counter]);
+            }
+
+            setTimeout(function () { SimulationManager.Update(); }, STEP_DELAY); // lance etape suivante
+            return; // sors juste de l'update
         }
 
         // clear
@@ -72,6 +82,10 @@ class SimulationManager {
 
         // afficher
         SimulationManager.current.draw(SimulationManager.ctx);
+        var counters = SimulationManager.current.getStatesCount();
+        for(let counter in counters) {
+            Graph.active.addPoint(counter, SimulationManager.step, counters[counter]);
+        }
 
         // augmente compteur
         SimulationManager.step++;

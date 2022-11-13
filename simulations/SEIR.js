@@ -43,6 +43,11 @@ class SEIR extends Simulation {
                 count += 1;
             }
         }
+        // init graph
+        Graph.active.addCourbe("susceptible", "rgb(255, 255, 255)");
+        Graph.active.addCourbe("retablie",    "rgb(20, 200, 20)");
+        Graph.active.addCourbe("infectee",    "rgb(200, 20, 20)");
+        Graph.active.addCourbe("exposee",    "rgba(240, 65, 35)");
     }
 
     isFinished() {
@@ -135,6 +140,22 @@ class SEIR extends Simulation {
         }
 
         return cell;
+    }
+
+    getStatesCount() {
+        var counters = [0, 0, 0, 0];
+        for(var x = 0; x < this.gridSize; ++x) {
+            for(var y = 0; y < this.gridSize; ++y) {
+                var cell = this.grid[x][y];
+                counters[cell.etat]++;
+            }
+        }
+        return {
+            "susceptible": counters[0],
+            "infectee": counters[1],
+            "retablie": counters[2],
+            "exposee": counters[3]
+        };
     }
 }
 

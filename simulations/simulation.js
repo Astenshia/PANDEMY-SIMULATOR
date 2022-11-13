@@ -142,4 +142,8 @@ class Simulation {
             }
         }
     }
+
+    getStatesCount() {
+        return {};
+    }
 }

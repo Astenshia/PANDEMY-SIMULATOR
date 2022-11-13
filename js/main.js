@@ -6,6 +6,8 @@ function main() {
     const canvas = document.querySelector("#canvas0");
     // contexte de rendu 2D
     const ctx = canvas.getContext("2d");
+    // create graph
+    const graph = new Graph("graph0", 310, 270);
 
     // initialisation de l'interface
     Interface.Init();

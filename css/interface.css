@@ -10,31 +10,37 @@
     height: 100vh; /* view height */
 }
 
-#interface div.inspector {
+#interface div.inspector,
+#interface div.simulations {
     --size: 80px;
     position: absolute;
-    right: var(--size);
     top: var(--size);
-    height: calc(100vh - calc(var(--size) * 2));
-    width: 20vw;
     border-radius: 10px;
+}
+
+#interface div.inspector {
+    right: var(--size);
     background-color: rgb(173, 17, 30);
     box-shadow: 0 0 8px 3px rgb(245, 7, 7);
+
+    height: calc(100vh - calc(var(--size) * 2));
+    width: 20vw;
 
     display: flex;
     flex-direction: column;
     padding: 10px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #interface div.simulations {
-    --size: 80px;
-    position: absolute;
     left: var(--size);
-    top: var(--size);
-    height: calc(100vh - calc(var(--size) * 2));
-    width: 20vw;
-    border-radius: 10px;
     background-color: rgb(190, 255, 146);
+    
+    height: calc(100vh - calc(var(--size) * 2) + 20px);
+    width: 20vw;
+
     box-shadow: 0 0 8px 3px rgb(190, 255, 146);
 
     display: flex;
@@ -49,14 +55,14 @@
 }
 
 .tab-button {
-    background-color: rgb(77, 122, 51);
+    background-color: rgb(51, 116, 29);
     width: 20px;
     text-orientation:sideways-right;
     border: none;
     flex-grow: 1;
     color: black;
     border-radius: 0 10px 10px 0;
-    box-shadow: inset 5px 0 6px rgb(51, 51, 51);
+    box-shadow: inset 5px 0 6px rgb(60, 139, 33);
     position: relative;
     transition: all .2s ease;
 }
@@ -93,11 +99,14 @@
     width: 90%;
     height: 90%;
     row-gap: 12px;
+    /* overflow-x: scroll; */
+    /* overflow-y: hidden; */
 }
 
 .tab-view.active {
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
 }
 
 /* inputs */
@@ -105,12 +114,14 @@
     display: flex;
     flex-direction: column;
     color: white;
+    overflow: hidden;
 }
 
 /* label */
 .input-group label {
-    font-family: 'Just Another Hand', cursive; /* NOMS SLIDERS*/
-    font-size: 33px;
+    font-family:Uroob, sans-serif; /* NOMS SLIDERS*/
+    font-size: 1.7em;
+    white-space: nowrap;
 }
 
 /* ranges */
@@ -118,12 +129,13 @@
     -webkit-appearance: none;
     appearance: none;
     cursor: pointer;
-    width: 100%;
+    width: 90%;
     height: 10px;
     border-radius: 5px;
+    overflow: hidden;
 
     background-color: white;
-    color: darkolivegreen;
+    color: rgb(51, 116, 29);
 }
 
 .input-group input::-webkit-slider-runnable-track,
@@ -136,14 +148,15 @@
 .input-group input::-webkit-slider-thumb,
 .input-group input::-moz-range-thumb {
     -webkit-appearance: none;
+    -moz-appearance: none;
     width: 20px;
     border: 0;
-    background-color: rgb(50, 63, 29)
+    background-color: rgb(17, 23, 9);
 }
 
 .input-group input:hover::-webkit-slider-thumb,
 .input-group input:hover::-moz-range-thumb {
-    background-color: rgb(60, 75, 36)
+    background-color: rgb(35, 45, 20);
 }
 
 
@@ -151,7 +164,7 @@
 .input-group input::-webkit-range-progress {
     background-color: currentColor;
     height: 100%;
-    border-radius: 5px;
+    border-radius: 0;
 }
 
 /* settings icon */

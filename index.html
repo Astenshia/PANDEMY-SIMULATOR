@@ -12,13 +12,14 @@
     <script src="js/draw.js"></script>
     <script src="js/main.js"></script>
     <script src="js/interface.js"></script>
+    <script src="js/graph.js"></script>
 </head>
 <body>
     <header><h1>Pandemy simulator</h1></header>
 
-    <div id="main">
+    <main>
         <canvas id="canvas0" width="400" height="400"></canvas>
-    </div>
+    </main>
     
     <div id="interface">
         <div class="simulations">
@@ -29,9 +30,22 @@
         <div class="inspector">
             <button id="control"><i class="fa-solid fa-play"></i></button>
             <span id="stepIndicator"></span>
+            <section id="legende">
+                <h3>Legende :</h3>
+                <ul>
+                    <li><span class="circle" id="susceptible"></span>Susceptible</li>
+                    <li><span class="circle" id="infectee"></span>Infectée</li>
+                    <li><span class="circle" id="retablie"></span>Retablie</li>
+                    <li><span class="circle" id="exposee"></span>Exposée</li>
+                    <li><span class="circle" id="quarantaine"></span>Quarantaine</li>
+                    <li><span class="circle" id="mort"></span>Mort</li>
+                </ul>
+            </section>
+            <section class="graph" id="graph0">
+            </section>
         </div>
     </div>
-
+    
     <footer><p>By the unbelievable ill-tempered and cat-lover scientists Lucas & Claire</p></footer>
     <!-- Fichiers simulation   -->
     <script src="js/simulationManager.js"></script>

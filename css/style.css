@@ -16,6 +16,11 @@
     text-rendering: geometricPrecision;
 }
 
+::selection {
+    background-color: orange;
+    color: black;
+}
+
 /* Header and footer */
 header,
 footer {
@@ -50,7 +55,7 @@ body {
 }
 
 /* main */
-div#main {
+main {
     width: 100vw;
     display: grid;
     place-items: center;
@@ -65,10 +70,102 @@ canvas {
     border-radius: 10px;
     height: 80%;
     aspect-ratio: 1;
+
 }
 
 #stepIndicator {
-    font-family: monospace;
-    font-size: 20px;
-    color: white;
+    padding: 1%;
+    font-family: Uroob;
+    color: rgb(255, 255, 255);
+    margin-inline: auto;
+    width: 80%;
+    font-size: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px white solid;
+    text-shadow: 2px;
+    
+}
+
+/* Legende */
+#legende {
+    width: 100%;
+    padding: 1%;
+    z-index: 10;
+    font-family: Uroob;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+}
+
+#legende h3 {
+    margin-inline: auto;
+    width: 80%;
+    font-size: 33px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px white solid;
+}
+#legende ul {
+    padding: 10px 10%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: left;
+    gap: 10px;
+    font-size: 25px;
+    
+}
+
+#legende ul li {
+    width: fit-content;
+    list-style: none;
+    position: relative;
+    margin-left: 23px;
+    text-align: left;
+}
+
+.circle#retablie {
+    --bg: rgba(20, 200, 20, 0.8);
+}
+.circle#infectee{
+    --bg : rgba(200, 20, 20, 0.8);
+}
+.circle#susceptible {
+    --bg: rgba(255, 255, 255, 0.8);
+}
+.circle#exposee {
+    --bg:rgba(240, 65, 35, 0.8);
+}
+.circle#quarantaine {
+    --bg: rgba(243, 17, 205, 0.8);
+}
+.circle#mort {
+    --bg: rgba(0, 50, 240, 0.8);
+}
+
+ul li span.circle {
+    position: absolute;
+    display: inline-block;
+    width: 15px;
+    aspect-ratio: 1;
+    left: -20px;
+    top: 1px;
+    border-radius: 50%;
+    background-color: var(--bg);
+    border: 1px #000 solid;
+}
+
+section.graph {
+    max-height: 100%;
+}
+
+section.graph canvas {
+    max-width: 100%;
+    min-width: 100%;
+    width: unset;
+    height: unset;
+    border: none;
+    box-shadow: none;
+    background-color: #211;
 }
